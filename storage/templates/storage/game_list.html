@@ -1,0 +1,30 @@
+{% extends 'storage/base.html' %}
+
+{% block content %}
+  <h2>Games</h2>
+  <hr>
+  <div class="card">
+    <table class="table mb-0">
+      <thead class="thead-light">
+        <tr>
+          <th>Attempted at</th>
+          <th>Score</th>
+          <th>Duration</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for game in games %}
+          <tr>
+            <td class="align-middle">{{ game.attempted }}</td>
+            <td class="align-middle">{{ game.score }}</td>
+            <td class="align-middle">{{ game.duration }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="4">You haven't attempted a game yet.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

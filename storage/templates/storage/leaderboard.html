@@ -1,0 +1,28 @@
+{% extends 'storage/base.html' %}
+
+{% block content %}
+<h2>Leaderboard</h2>
+<hr>
+<div class="card">
+    <table class="table mb-0">
+      <thead class="bg-light thead-light">
+        <tr>
+          <th>Rank</th>
+          <th>User</th>
+          <th>Taken on</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td class="text-midddle">{{ forloop.counter }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.attempted }}</td>
+            <td>{{ user.max_score }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

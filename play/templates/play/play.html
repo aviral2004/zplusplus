@@ -1,0 +1,33 @@
+{% extends 'storage/base.html' %}
+
+{% block app_scripts %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'play/app.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script src="{% static 'play/app.js' %}"></script>
+{% endblock %}
+
+{% block game_content %}
+  <div id="game">
+    <span class="left">Seconds left:</span>
+    <span class="correct">Score: 0</span>
+    {% csrf_token %}
+    <div class="banner">
+      <div class="start">
+        <span class="problem"></span>
+        =
+        <input class="answer" />
+      </div>
+      <div class="end">
+        <p class="correct">Score: 0</p>
+        <p>
+          <a href="/">Try again</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  {{ game_config|json_script:'game_config' }}
+  <script>
+    Arithmetic.init(JSON.parse(document.getElementById('game_config').textContent));
+  </script>
+{% endblock %}
