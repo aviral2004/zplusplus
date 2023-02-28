@@ -15,6 +15,7 @@ from .models import game, settings
 def home(request):
     return render(request, 'storage/home.html')
 
+
 class GameListView(LoginRequiredMixin, ListView):
     model = game
     template_name = 'storage/game_list.html'
@@ -42,10 +43,12 @@ class LeaderboardView(LoginRequiredMixin, ListView):
     def get_queryset(self):
 
         # Subquery to get the max score of games for a user
-        max_score_subquery = game.objects.filter(user=OuterRef('pk')).values('user').annotate(max_score=Max('score')).values('max_score')
+        max_score_subquery = game.objects.filter(user=OuterRef('pk')).values(
+            'user').annotate(max_score=Max('score')).values('max_score')
 
         # Subquery to get the earliest game for a user with the max score
-        earliest_max_score_game_subquery = game.objects.filter(user=OuterRef('pk'), score=OuterRef('max_score')).values('attempted').order_by('attempted')[:1]
+        earliest_max_score_game_subquery = game.objects.filter(user=OuterRef(
+            'pk'), score=OuterRef('max_score')).values('attempted').order_by('attempted')[:1]
 
         users = User.objects.annotate(
             max_score=Subquery(max_score_subquery),
@@ -55,7 +58,7 @@ class LeaderboardView(LoginRequiredMixin, ListView):
         return users.order_by('-max_score', 'attempted')
 
 
-class settingsForm(forms.ModelForm):
+class settingsForm(forms.ModelForm, LoginRequiredMixin):
     duration = forms.ChoiceField(
         choices=[(30, '30'), (60, '60'), (120, '120'), (300, '300'), (600, '600')])
 
