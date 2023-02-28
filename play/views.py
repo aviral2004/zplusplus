@@ -2,11 +2,13 @@ from django.shortcuts import render
 from storage.models import game
 from django.forms.models import model_to_dict
 import json
+from django.contrib.auth.decorators import login_required
 
 from storage.models import settings
 
 
 # Create your views here.
+@login_required
 def play(request):
     user = request.user
     instance = settings.objects.get(user=user)
