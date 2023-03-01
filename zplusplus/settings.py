@@ -29,7 +29,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['zplusplus.azurewebsites.net',
                  'www.zplusplus.azurewebsites.net']
 
-SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
 
 
